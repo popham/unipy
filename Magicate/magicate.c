@@ -70,7 +70,7 @@ const unsigned char *branch(const node *n, const unsigned char *source, unsigned
          * closed by a `).___some_op___(`.  Left to right associativity.
          */
         for (i=(NCH(n) - 1)/2; i>0; --i) {
-            if (ISEXTRAOP(TYPE(CHILD(n, i)))) {
+            if (ISEXTRAOP(TYPE(CHILD(n, i*2 - 1)))) {
 #ifndef NDEBUG
     printf("printing '(' to target\n");
 #endif
