@@ -6,8 +6,8 @@ EMCC=   /home/popham/emscripten/emcc
 OPT=       -DNDEBUG -fwrapv -O3 -Wall -Wstrict-prototypes
 BASECFLAGS=-fno-strict-aliasing
 CFLAGS=    -I. -IInclude $(BASECFLAGS) -ggdb -Wall
-EMFLAGS=   -I. -IInclude -O2 --profiling
-# --closure 1 -Os
+EMFLAGS=   -I. -IInclude -O2 --closure 1
+# --profiling
 CPPFLAGS=  -I. -IInclude
 
 ##########################################################################
