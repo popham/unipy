@@ -1,8 +1,4 @@
 *.o
 /Include/graminit.h
-/Magicate/main.c
-/Magicate/graminit.c
-/Parser/pgen
-/Parser/pgen.stamp
-/magicate.js
-/magicate.js.mem
+
+
