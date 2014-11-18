@@ -145,7 +145,6 @@ unsigned int compute_delta(const node *n)
     return delta;
 }
 
-// JS allocation no good.  Inaccessible client side.
 unsigned char *magicate(const unsigned char *source)
 {
     unsigned char **accumulator;
