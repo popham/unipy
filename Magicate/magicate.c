@@ -24,10 +24,6 @@ const unsigned char *advance(unsigned char **target, const unsigned char *source
     memcpy(*target, source, length);
     *target += length;
 
-#ifndef NDEBUG
-    printf("new tail of '%.*s...'\n", 5, source+length);
-#endif
-
     return source + length;
 }
 
