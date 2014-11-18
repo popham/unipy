@@ -145,6 +145,7 @@ unsigned int compute_delta(const node *n)
     return delta;
 }
 
+// JS allocation no good.  Inaccessible client side.
 unsigned char *magicate(const unsigned char *source)
 {
     unsigned char **accumulator;
@@ -155,7 +156,7 @@ unsigned char *magicate(const unsigned char *source)
     node *n = PyParser_ParseString(source, g, g->g_start, &err);
 
     length = strlen((const char *)source) + compute_delta(n);
-    t = result = js_alloc(length + 1280000);
+    t = result = malloc(length+1);
     accumulator = &t;
     result[length] = '\0';
 
@@ -167,28 +168,3 @@ unsigned char *magicate(const unsigned char *source)
 
     return result;
 }
-
-// Sometimes I'll need grouping for the LHS argument, e.g.
-// `a * b \oplus c` -> `(a * b).__oplus__(c)`.
-// Since I'll need grouping sometimes, then I'll always group the LHS to
-// maintain my isomorphism, e.g.
-// `(b) \oplus ((c))` -> `((b) ).__oplus__( ((c)))`.
-
-// Whitespace needs special care to maintain my isomorphism, e.g.
-// `a \otimes b` -> `(a ).__otimes__( b)` -> `a \otimes b`.
-// * LHS space: Search backward from `*` to the first non-whitespace.  If a "\n"
-//   or a "\\\n" is found, then include it and continue searching:
-//   `a \\\n    \otimes b` -> `((a) \\n    ).__otimes__( b)`.
-// * RHS space: Search from the end of `*` to the first non-whitespace.  If a
-//   "\n" or "\\\n" is found, then include it and continue searching:
-//   `a \otimes \\\n    b` -> `(a ).__otimes__( \\\n    b)`.
-
-// The length change associated with each operator is a compile-time constant.
-// * I'm preserving whitespace.
-// * I'm adding a pair of parens for any binary operator.
-
-// Since the primitives will never know about `\otimes` operations natively, I
-// can safely convert `5 \otimes classInstance` to
-// `(classInstance ).__rotimes__( 5)`, but I can't cover calls at runtime.
-
-// TODO: AugAssign untangle
