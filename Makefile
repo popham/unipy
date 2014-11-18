@@ -96,8 +96,8 @@ clean:
 	rm -f Include/graminit.h
 	rm -f Magicate/graminit.c
 	rm -f Magicate/cli
-	rm -f Magicate/magicate.js
-	rm -f Magicate/magicate.js.mem
+	rm -f magicate.js
+	rm -f magicate.js.mem
 
 $(GRAMMAR_H): $(GRAMMAR_INPUT) $(PGENSRCS)
 	touch -c $(GRAMMAR_H)
@@ -118,6 +118,6 @@ magicatec: $(MAGOBJS) $(GRAMMAR_C)
 	$(CC) $(CFLAGS) $(MAGOBJS) Magicate/main.c -o Magicate/cli
 
 magicate: $(MAGOBJS)
-	$(EMCC) --js-library Magicate/js_alloc.js --js-library Magicate/signal.js -s EXPORTED_FUNCTIONS="['_magicate']" $(EMFLAGS) $(MAGSRCS) -o magicate.js
+	$(EMCC) --js-library Magicate/signal.js -s EXPORTED_FUNCTIONS="['_magicate']" $(EMFLAGS) $(MAGSRCS) -o magicate.js
 
 Magicate/magicate.o: Magicate/graminit.o

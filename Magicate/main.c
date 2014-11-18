@@ -8,11 +8,6 @@ Py_Exit(int sts)
     exit(sts);
 }
 
-unsigned char *js_alloc(size_t length)
-{
-    return malloc(length);
-}
-
 void
 Py_FatalError(const char *msg)
 {
