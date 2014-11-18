@@ -6,8 +6,8 @@ EMCC=   /home/popham/emscripten/emcc
 OPT=       -DNDEBUG -fwrapv -O3 -Wall -Wstrict-prototypes
 BASECFLAGS=-fno-strict-aliasing
 CFLAGS=    -I. -IInclude $(BASECFLAGS) -ggdb -Wall
-EMFLAGS=   -I. -IInclude -O2 --closure 1
-# --profiling
+EMFLAGS=   -I. -IInclude  --profiling --memory-init-file 0 --pre-js Magicate/pre.txt --post-js Magicate/post.txt
+# -O2 --closure 1
 CPPFLAGS=  -I. -IInclude
 
 ##########################################################################
@@ -118,6 +118,6 @@ magicatec: $(MAGOBJS) $(GRAMMAR_C)
 	$(CC) $(CFLAGS) $(MAGOBJS) Magicate/main.c -o Magicate/cli
 
 magicate: $(MAGOBJS)
-	$(EMCC) --js-library Magicate/js_alloc.js --js-library Magicate/signal.js -s EXPORTED_FUNCTIONS="['_magicate']" $(EMFLAGS) $(MAGSRCS) -o Magicate/magicate.js
+	$(EMCC) --js-library Magicate/js_alloc.js --js-library Magicate/signal.js -s EXPORTED_FUNCTIONS="['_magicate']" $(EMFLAGS) $(MAGSRCS) -o magicate.js
 
 Magicate/magicate.o: Magicate/graminit.o
