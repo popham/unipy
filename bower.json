@@ -1,0 +1,19 @@
+{
+  "name": "unipy",
+  "version": "0.0.0",
+  "homepage": "https://github.com/popham/unipy",
+  "authors": [
+    "Tim Popham <popham@uw.edu>"
+  ],
+  "description": "Preprocess Unicode Python operators to kinda-magic-method calls",
+  "main": "magicate.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "fragment.py"
+  ]
+}
