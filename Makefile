@@ -6,8 +6,8 @@ EMCC=   /home/popham/emscripten/emcc
 OPT=       -DNDEBUG -fwrapv -O3 -Wall -Wstrict-prototypes
 BASECFLAGS=-fno-strict-aliasing
 CFLAGS=    -I. -IInclude $(BASECFLAGS) -ggdb -Wall
-EMFLAGS=   -I. -IInclude  --profiling --memory-init-file 0 --pre-js Magicate/pre.txt --post-js Magicate/post.txt
-# -O2 --closure 1
+#EMFLAGS=   -I. -IInclude  --profiling --memory-init-file 0 --pre-js Magicate/pre.txt --post-js Magicate/post.txt
+EMFLAGS=   -I. -IInclude  --memory-init-file 0 --pre-js Magicate/pre.txt --post-js Magicate/post.txt -O2 --closure 1
 CPPFLAGS=  -I. -IInclude
 
 ##########################################################################
@@ -89,15 +89,15 @@ MAGOBJS=Magicate/magicate.o \
 # Rules
 
 # Default target
-all: build_all
-build_all: Parser/pgen magicatec magicate
+all: Parser/pgen magicatec index
+
 clean:
 	rm -f Parser/pgen $(POBJS) $(PGOBJS) $(MAGOBJS)
 	rm -f Include/graminit.h
 	rm -f Magicate/graminit.c
 	rm -f Magicate/cli
-	rm -f magicate.js
-	rm -f magicate.js.mem
+	rm -f index.js
+	rm -f index.js.mem
 
 $(GRAMMAR_H): $(GRAMMAR_INPUT) $(PGENSRCS)
 	touch -c $(GRAMMAR_H)
@@ -117,7 +117,7 @@ Parser/grammar.o: Parser/grammar.c \
 magicatec: $(MAGOBJS) $(GRAMMAR_C)
 	$(CC) $(CFLAGS) $(MAGOBJS) Magicate/main.c -o Magicate/cli
 
-magicate: $(MAGOBJS)
-	$(EMCC) --js-library Magicate/signal.js -s EXPORTED_FUNCTIONS="['_magicate']" $(EMFLAGS) $(MAGSRCS) -o magicate.js
+index: $(MAGOBJS)
+	$(EMCC) --js-library Magicate/signal.js -s EXPORTED_FUNCTIONS="['_magicate']" $(EMFLAGS) $(MAGSRCS) -o index.js
 
 Magicate/magicate.o: Magicate/graminit.o
