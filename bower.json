@@ -6,7 +6,7 @@
     "Tim Popham <popham@uw.edu>"
   ],
   "description": "Preprocess Unicode Python operators to kinda-magic-method calls",
-  "main": "magicate.js",
+  "main": "index.js",
   "moduleType": [
     "amd"
   ],
@@ -14,6 +14,11 @@
   "private": true,
   "ignore": [
     "**/.*",
-    "fragment.py"
+    "fragment.py",
+    "Grammar",
+    "Include",
+    "Magicate",
+    "Makefile",
+    "Parser"
   ]
 }
